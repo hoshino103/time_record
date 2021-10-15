@@ -1,0 +1,17 @@
+<% @record.each do |record| %>
+<div>
+  <%= record.day%>
+</div>
+<div>
+<%# レコードにデータがある場合表示 %>
+  <%if record.begin != nil %>
+    <%= record.begin.strftime("%H:%M") %>
+  <% end %>
+  <%if record.finish != nil %>
+    <%= record.finish.strftime("%H:%M") %>
+  <% end %>
+  <%if record.begin != nil && record.finish != nil %>
+    
+  <% end %>
+</div>
+<% end %>

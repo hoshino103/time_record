@@ -1,0 +1,7 @@
+<サイドバー>
+
+<% if user_signed_in? %>
+<%= link_to "マイページ", record_path(current_user.id) %>
+<% else %>
+ログインしてください
+<% end %>

@@ -1,0 +1,26 @@
+<h2>top page</h2>
+<% if user_signed_in? %>
+  <%= current_user.name %>
+  <%= link_to 'ログアウト', destroy_user_session_path, mothod: :DELETE, data: {confirm: "ログアウトしますか？"} %>
+<% else %>
+  <%= link_to '新規登録', new_user_registration_path %>
+  <%= link_to 'ログイン', new_user_session_path %>
+<% end %>
+
+
+<div id="clock"></div>
+
+<%= form_with model: @record,local: true do |f| %>
+  <%= f.hidden_field :day, value:Date.today%>
+  <%= f.hidden_field :begin, id:"begin" %>
+  <%= f.submit "出勤" %>
+<% end %>
+
+<%= form_with model: @record,local: true do |f| %>
+  <label>休憩時間</label>
+  <%= f.text_field :break, value:0%>
+  <%= f.hidden_field :day,id:"day"%>
+  <%= f.hidden_field :finish, id:"finish" %>
+  <%= f.submit "退勤" ,data: {confirm: "登録"} %>
+<% end %>
+
