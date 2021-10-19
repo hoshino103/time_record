@@ -1,11 +1,7 @@
-<div>
- <%= form_with(url: search_records_path, local: true, method: :get) do |form| %>
-  <%= form.text_field :keyword, placeholder: "投稿を検索する" %>
+<%= form_with(url: search_records_path, local: true, method: :get) do |form| %>
+  <%= form.text_field :keyword, placeholder: "検索する" %>
   <%= form.submit "検索"%>
 <% end %>
-</div>
-
-
 
 <table>
  <th>名前</th>
@@ -16,7 +12,7 @@
  <th>編集</th>
  <th>削除</th>
   
-  <% @record.each do |record| %>
+  <% @records.each do |record| %>
     <tr>
     <td>
       <%= record.user.name%>
@@ -50,4 +46,3 @@
    </tr>
   <% end %>
 </table>
-

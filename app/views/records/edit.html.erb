@@ -1,0 +1,24 @@
+
+
+<%= form_with model: @record, local: true do |f|%>
+  <%= @record.user.name %>
+  <table>
+    <th>日付</th>
+    <th>出勤</th>
+    <th>退勤</th>
+    <th>休憩</th>
+    <tr></tr>
+    <td><%= f.text_field :day %></td>
+    <%if @record.begin != nil %>
+      <td><%= f.text_field :begin, value: @record.begin.strftime("%H:%M") %></td>
+    <% end %>
+    <%if @record.finish != nil %>
+      <td><%= f.text_field :finish, value: @record.finish.strftime("%H:%M") %></td>
+    <% end %>
+    <%if @record.break != nil %>
+      <td><%= f.text_field :break, value: @record.break.strftime("%H:%M") %></td>
+    <% end %>
+    <td><%= f.submit "変更" %></td>
+    <td><%= f.submit "削除" %></td>
+  </table>
+<% end %>

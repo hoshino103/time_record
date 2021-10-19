@@ -12,3 +12,7 @@
   width: calc(100vw - 300px);
   background-color: antiquewhite;
 }
+
+table,th,td {
+  border: solid 1px;
+}
