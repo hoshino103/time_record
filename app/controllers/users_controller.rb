@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
-    @records = Record.where("day LIKE?","%#{now_month}%").order('day')
-    @record1 = Record.find_by(day:today , user_id:current_user.id)
+    @records = Record.where("day_time LIKE?","%#{now_month}%").order('day_time')
+    @record1 = Record.find_by(day_time:today , user_id:current_user.id)
   end
 end
 

@@ -19,16 +19,16 @@
 <div id="clock"><%= time_now%></div>
 
 <%= form_with model: @record,local: true do |f| %>
-  <%= f.text_field :day, id:"begin-day", value: day_now %>
-  <%= f.text_field :begin, id:"begin", value: time_now %>
+  <%= f.text_field :day_time, id:"begin-day", value: day_now %>
+  <%= f.text_field :begin_time, id:"begin", value: time_now %>
   <%= f.submit "出勤" %>
 <% end %>
 
 <%= form_with model: @record,local: true do |f| %>
-  <%= f.text_field :day, id:"finish-day", value: day_now %>
-  <%= f.text_field :finish, id:"finish", value: time_now %><br />
-  <%= f.label :break, "休憩時間" %>
-  <%= f.text_field :break, value: 0 %>
+  <%= f.text_field :day_time, id:"finish-day", value: day_now %>
+  <%= f.text_field :finish_time, id:"finish", value: time_now %><br />
+  <%= f.label :break_time, "休憩時間" %>
+  <%= f.text_field :break_time, value: 0 %>
   <%= f.submit "退勤" %>
 <% end %>
 

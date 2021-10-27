@@ -4,31 +4,31 @@
   <%= form_with model: @record, local: true do |f|%>
     <%= @record.user.name %>
     <dt>
-        <%= f.label :day, '日付' %>
-        <%= f.text_field :day, value: @record.day %>
+        <%= f.label :day_time, '日付' %>
+        <%= f.text_field :day_time, value: @record.day_time %>
     </dt>
     <dt>
-        <%= f.label :begin, '出勤時間' %>
-        <%if @record.begin != nil %>
-          <%= f.text_field :begin, value: @record.begin.strftime("%H:%M")%>
+        <%= f.label :begin_time, '出勤時間' %>
+        <%if @record.begin_time != nil %>
+          <%= f.text_field :begin_time, value: @record.begin_time.strftime("%H:%M")%>
         <% else %>
-          <%= f.text_field :begin %>
+          <%= f.text_field :begin_time %>
         <% end %>
     </dt>
     <dt>
-      <%= f.label :finish, '退勤時間' %>
-      <%if @record.finish != nil %>
-        <%= f.text_field :finish, value: @record.finish.strftime("%H:%M") %>
+      <%= f.label :finish_time, '退勤時間' %>
+      <%if @record.finish_time != nil %>
+        <%= f.text_field :finish_time, value: @record.finish_time.strftime("%H:%M") %>
         <% else %>
-            <%= f.text_field :finish %>
+            <%= f.text_field :finish_time %>
       <% end %>
     </dt>
     <dt>
-      <%= f.label :break, '休憩時間'%>
-      <%if @record.break != nil %>
-        <%= f.text_field :break, value: @record.break %>
+      <%= f.label :break_time, '休憩時間'%>
+      <%if @record.break_time != nil %>
+        <%= f.text_field :break_time, value: @record.break_time %>
          <% else %>
-            <%= f.text_field :break %>
+            <%= f.text_field :break_time %>
       <% end %>
     </dt>
     <%= f.submit '変更'%>

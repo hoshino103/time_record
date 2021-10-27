@@ -20,36 +20,36 @@
  <th>編集</th>
  <th>削除</th>
  <%total_time = 0 %>
- <%total_break = 0 %>
+ <%total_break_time = 0 %>
   <% @records.each do |record| %>
     <tr>
       <td>
         <%= record.user.name%>
       </td>
       <td>
-        <%= record.day%>
+        <%= record.day_time%>
       </td>
       <td >
       <%# レコードに出勤データがある場合表示 %>
-        <%if record.begin != nil %>
-          <%= record.begin.strftime("%H:%M") %>
+        <%if record.begin_time != nil %>
+          <%= record.begin_time.strftime("%H:%M") %>
         <% end %>
       </td>
       <%# レコードに退勤データがある場合表示 %>
       <td>
-        <%if record.finish != nil %>
-          <%= record.finish.strftime("%H:%M") %>
+        <%if record.finish_time != nil %>
+          <%= record.finish_time.strftime("%H:%M") %>
         <% end %>
       </td>
       <td>
-        <%if record.break != nil %>
-          <%= record.break%>
-          <% total_break += record.break %>
+        <%if record.break_time != nil %>
+          <%= record.break_time%>
+          <% total_break_time += record.break_time %>
         <% end %>
       </td>
       <td>
-      <% if record.begin != nil && record.finish != nil && record.break != nil %>
-        <% time = (record.finish - record.begin) /3600 - record.break %>
+      <% if record.begin_time != nil && record.finish_time != nil && record.break_time != nil %>
+        <% time = (record.finish_time - record.begin_time) /3600 - record.break_time %>
         <%= time.round(1).to_s + '時間' %>
         <% total_time += time %>
       <% else %>
@@ -57,8 +57,8 @@
       <% end %>
       </td>
       <td>
-       <% if record.begin != nil && record.finish != nil && record.break != nil %>
-        <% time = (record.finish - record.begin) /3600 - record.break %>
+       <% if record.begin_time != nil && record.finish_time != nil && record.break_time != nil %>
+        <% time = (record.finish_time - record.begin_time) /3600 - record.break_time %>
         <% money =  time * current_user.money %>
         <%= money.round(0).to_s + '円' %>
       <% else %>
@@ -84,7 +84,7 @@
     <th>合計</th>
   </tr>
     <td> <%= now_month + '月' %> </td>
-    <td> <%= total_break.round(1).to_s + '時間' %> </td>
+    <td> <%= total_break_time.round(1).to_s + '時間' %> </td>
     <td> <%= total_time.round(1).to_s + '時間' %> </td>
     <% total_money = total_time * current_user.money %>
     <td> <%= total_money.round(0).to_s + '円' %> </td>

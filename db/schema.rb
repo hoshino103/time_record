@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 2021_10_12_092738) do
 
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.date "day"
-    t.time "begin"
-    t.time "finish"
-    t.float "break"
+    t.date "day_time"
+    t.time "begin_time"
+    t.time "finish_time"
+    t.float "break_time"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

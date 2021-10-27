@@ -20,23 +20,23 @@
       <%= record.user.name%>
     </td>
     <td>
-      <%= record.day%>
+      <%= record.day_time%>
     </td>
     <td >
     <%# レコードに出勤データがある場合表示 %>
-      <%if record.begin != nil %>
-        <%= record.begin.strftime("%H:%M") %>
+      <%if record.begin_time != nil %>
+        <%= record.begin_time.strftime("%H:%M") %>
       <% end %>
     </td>
     <%# レコードに退勤データがある場合表示 %>
     <td>
-      <%if record.finish != nil %>
-        <%= record.finish.strftime("%H:%M") %>
+      <%if record.finish_time != nil %>
+        <%= record.finish_time.strftime("%H:%M") %>
       <% end %>
     </td>
     <td>
-      <%if record.break != nil %>
-        <%= record.break %>
+      <%if record.break_time != nil %>
+        <%= record.break_time %>
       <% end %>
     </td>
     <td>

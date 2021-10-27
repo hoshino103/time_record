@@ -7,16 +7,15 @@ class RecordsController < ApplicationController
   def create
     @record = Record.new(record_params)
     #ログインユーザーの今日の出退勤レコード
-    @record1 = Record.find_by(day:today , user_id:current_user.id)
-
+    @record1 = Record.find_by(day_time:today , user_id:current_user.id)
     if @record1 == nil
        @record.save
        redirect_to root_path
     #現在のレコードに出勤時間がなく、送られてきたデータに出勤時間がある場合
-    elsif @record1.begin == nil && @record.begin != nil
+    elsif @record1.begin_time == nil && @record.begin_time != nil
       @record1.update(record_params)
       redirect_to root_path    #現在のレコードに退勤時間がなく、送られてきたデータに退勤時間がある場合
-    elsif @record1.finish == nil && @record.finish != nil
+    elsif @record1.finish_time == nil && @record.finish_time != nil
       @record1.update(record_params)
       redirect_to root_path
     else
@@ -38,7 +37,7 @@ class RecordsController < ApplicationController
 	end
 
 	def complete
-    @record1 = Record.find_by(day:today , user_id:current_user.id)
+    @record1 = Record.find_by(day_time:today , user_id:current_user.id)
 		if @record1.update(record_params)
       redirect_to user_path(current_user.id)
     else
@@ -75,7 +74,7 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record).permit(:day, :begin, :finish, :break).merge(user_id: current_user.id)
+    params.require(:record).permit(:day_time, :begin_time, :finish_time, :break_time).merge(user_id: current_user.id)
   end
 
   def keyword_params
