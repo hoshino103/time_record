@@ -1,6 +1,83 @@
-<%= form_with model: @record, local: true do |f|%>
-  <div class="field">
-    <%= f.text_field :begin %>
-  </div>
-<% end %>
 
+
+<dl>
+  <%= form_with model: @record1, local: true do |f|%>
+    <%= @record.user.name %>
+    <dt>
+        <%= f.label :day, '日付' %>
+        <%= f.text_field :day %>
+    </dt>
+    <dt>
+        <%= f.label :begin, '出勤時間' %>
+        <%if @record1.begin != nil %>
+          <%= f.text_field :begin, value: @record1.begin.strftime("%H:%M") %>
+        <% else %>
+          <%= f.text_field :begin %>
+        <% end %>
+    </dt>
+    <dt>
+      <%= f.label :finish, '退勤時間' %>
+      <%if @record1.finish != nil %>
+        <%= f.text_field :finish, value: @record1.finish.strftime("%H:%M") %>
+        <% else %>
+            <%= f.text_field :finish %>
+      <% end %>
+    </dt>
+    <dt>
+      <%= f.label :break, '休憩時間'%>
+      <%if @record1.break != nil %>
+        <%= f.text_field :break, value: @record1.break %>
+         <% else %>
+            <%= f.text_field :break %>
+      <% end %>
+    </dt>
+  <% end %>
+</dl>
+
+<dl>
+  <%= form_with model: @record, url: complete_records_path, local: true do |f|%>
+    <%= @record.user.name %>
+    <dt>
+        <%= f.label :day, '日付' %>
+        <%= f.text_field :day, value: @record.day %>
+    </dt>
+    <dt>
+        <%= f.label :begin, '出勤時間' %>
+        <%if @record.begin != nil %>
+          <%= f.text_field :begin, value: @record.begin.strftime("%H:%M") %>
+        <% elsif  @record1.begin != nil %>
+            <%= f.text_field :begin, value: @record1.begin.strftime("%H:%M") %>
+        <% else %>
+            <%= f.text_field :begin %>
+      <% end %>
+    </dt>
+    <dt>
+        <%= f.label :finish, '退勤時間' %>
+        <%if @record.finish != nil %>
+            <%= f.text_field :finish, value: @record.finish.strftime("%H:%M") %>
+        <% elsif  @record1.finish != nil %>
+            <%= f.text_field :finish, value: @record1.finish.strftime("%H:%M") %>
+        <% else %>
+            <%= f.text_field :finish %>
+      <% end %>
+    </dt>
+    <dt>
+      <%= f.label :break, '休憩時間'%>
+      <%if @record.break != nil %>
+        <%= f.text_field :break, value: @record.break%>
+      <% elsif  @record1.break != nil %>
+            <%= f.text_field :break, value:@record1.break  %>
+      <% else %>
+            <%= f.text_field :break %>
+      <% end %>
+    </dt>
+    <%= f.submit '更新' %>
+  <% end %>
+</dl>
+
+<%= form_for @record, method: :post, url: back_records_path do |form| %>
+	<%= form.hidden_field :day %>
+	<%= form.hidden_field :begin %>
+	<%= form.hidden_field :finish %>
+	<%= form.submit '入力画面に戻る' %>
+<% end %>

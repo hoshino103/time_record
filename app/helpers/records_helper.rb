@@ -10,12 +10,12 @@ module RecordsHelper
       "#{year}年#{month}月#{day}日(#{week[time.wday]})"
     end
 
-    def today
+    def day_now
       time = Time.now
       year = time.year
       month = time.month
       day = time.day
-      "#{year}#{month}#{day}"
+      "#{year}-#{month}-#{day}"
     end
 
 

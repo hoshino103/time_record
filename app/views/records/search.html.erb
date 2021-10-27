@@ -1,5 +1,5 @@
-<%= form_with(url: search_records_path, local: true, method: :get) do |form| %>
-  <%= form.text_field :keyword, placeholder: "検索する" %>
+<%= form_with(url: search_record_path, local: true, method: :get) do |form| %>
+  <%= form.text_field :keyword, placeholder: "日付を検索する" %>
   <%= form.submit "検索"%>
 <% end %>
 
@@ -11,7 +11,9 @@
  <th>休憩</th>
  <th>編集</th>
  <th>削除</th>
-  
+<% if @records != nil%>
+    
+
   <% @records.each do |record| %>
     <tr>
     <td>
@@ -34,7 +36,7 @@
     </td>
     <td>
       <%if record.break != nil %>
-        <%= record.break.strftime("%H:%M") %>
+        <%= record.break %>
       <% end %>
     </td>
     <td>
@@ -45,4 +47,5 @@
     </td>
    </tr>
   <% end %>
+<% end %>
 </table>

@@ -7,23 +7,26 @@
   <%= link_to 'ログイン', new_user_session_path %>
 <% end %>
 
-<% if @record.day != nil %>
-  <%= @record1.day %>
+<% if user_signed_in? %>
+  <% if current_user.admin == 1 %>
+    '管理者です'
+  <% else %>
+  <% end %>
 <% end %>
 
   
 
-<div id="clock"></div>
+<div id="clock"><%= time_now%></div>
 
 <%= form_with model: @record,local: true do |f| %>
-  <%= f.text_field :day, id:"begin-day"%>
-  <%= f.text_field :begin, id:"begin" %>
+  <%= f.text_field :day, id:"begin-day", value: day_now %>
+  <%= f.text_field :begin, id:"begin", value: time_now %>
   <%= f.submit "出勤" %>
 <% end %>
 
 <%= form_with model: @record,local: true do |f| %>
-  <%= f.text_field :day, id:"finish-day"%>
-  <%= f.text_field :finish, id:"finish" %><br />
+  <%= f.text_field :day, id:"finish-day", value: day_now %>
+  <%= f.text_field :finish, id:"finish", value: time_now %><br />
   <%= f.label :break, "休憩時間" %>
   <%= f.text_field :break, value: 0 %>
   <%= f.submit "退勤" %>

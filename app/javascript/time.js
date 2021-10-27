@@ -1,9 +1,15 @@
 const time = () => {
+  const set2 = (num) => {
+    let ret;
+    if (num < 10 ) { ret = "0" + num; }
+    else { ret = num; }
+    return ret;
+  }
   const showClock = () => {
     const time = new Date();
-    const hour = time.getHours();
-    const min = time.getMinutes();
-    const sec = time.getSeconds();
+    const hour = set2(time.getHours());
+    const min = set2(time.getMinutes());
+    const sec = set2(time.getSeconds());
     const year = time.getFullYear();
     const month = (time.getMonth()+1);
     const day = time.getDate();
@@ -22,6 +28,5 @@ const time = () => {
   }
   setInterval(showClock, 1000);
 };
-
 
 window.addEventListener("load",time)

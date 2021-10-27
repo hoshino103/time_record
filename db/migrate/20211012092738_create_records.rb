@@ -4,7 +4,7 @@ class CreateRecords < ActiveRecord::Migration[6.0]
       t.date :day
       t.time :begin
       t.time :finish
-      t.time :break
+      t.float :break
       t.references :user, foreign_key: true, null: false
       t.timestamps
     end
