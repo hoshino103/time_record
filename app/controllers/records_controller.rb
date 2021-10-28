@@ -12,6 +12,8 @@ class RecordsController < ApplicationController
        @record.save
        redirect_to root_path
     #現在のレコードに出勤時間がなく、送られてきたデータに出勤時間がある場合
+    elsif @record1.begin_time.nil? && @record1.finish_time != nil && @record.begin_time != nil
+      render action: :confirm
     elsif @record1.begin_time == nil && @record.begin_time != nil
       @record1.update(record_params)
       redirect_to root_path    #現在のレコードに退勤時間がなく、送られてきたデータに退勤時間がある場合
@@ -25,31 +27,39 @@ class RecordsController < ApplicationController
 
   def back
 		@record = Record.new(record_params)
-		render :index
+		redirect_to root_path
 	end
 
 	def confirm
 		@record = Record.new
 		@record = Record.new(record_params)
-		if @record.invalid?
-			render :confirm
-		end
+		# if @record.invalid?
+		# 	render :confirm
+    # else
+    #   render :confirm
+		# end
 	end
 
 	def complete
     @record1 = Record.find_by(day_time:today , user_id:current_user.id)
 		if @record1.update(record_params)
-      redirect_to user_path(current_user.id)
+      redirect_to record_path (current_user.id)
     else
       @record = Record.new(record_params)
       render :confirm
     end
 	end
 
+  def show
+    @records = Record.where("day_time LIKE? AND user_id LIKE?", "%#{now_month}%", "%#{current_user.id}%")
+    @record1 = Record.find_by(day_time:today , user_id:current_user.id)
+  end
+
   def update
     @record = Record.find(params[:id])
-    if @record.update(record_params)
-       redirect_to user_path(current_user.id)
+
+    if @record.valid?(:valid1) && @record.update(record_params)
+       redirect_to record_path(current_user.id)
     else 
       @record = Record.find(params[:id])
       render :edit
@@ -64,7 +74,7 @@ class RecordsController < ApplicationController
   def destroy
     @record = Record.find(params[:id])
     @record.destroy
-    redirect_to user_path
+    redirect_to record_path
   end
 
   def search

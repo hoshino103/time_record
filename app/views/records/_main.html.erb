@@ -18,13 +18,13 @@
 
 <div id="clock"><%= time_now%></div>
 
-<%= form_with model: @record,local: true do |f| %>
+<%= form_with model: @record, method: :post, local: true do |f| %>
   <%= f.text_field :day_time, id:"begin-day", value: day_now %>
   <%= f.text_field :begin_time, id:"begin", value: time_now %>
   <%= f.submit "出勤" %>
 <% end %>
 
-<%= form_with model: @record,local: true do |f| %>
+<%= form_with model: @record, method: :post, local: true do |f| %>
   <%= f.text_field :day_time, id:"finish-day", value: day_now %>
   <%= f.text_field :finish_time, id:"finish", value: time_now %><br />
   <%= f.label :break_time, "休憩時間" %>

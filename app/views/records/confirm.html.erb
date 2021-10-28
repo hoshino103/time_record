@@ -35,7 +35,7 @@
 </dl>
 
 <dl>
-  <%= form_with model: @record, url: complete_records_path, local: true do |f|%>
+  <%= form_with model: @record, method: :post, url: complete_records_path, local: true do |f|%>
     <%= @record.user.name %>
     <dt>
         <%= f.label :day_time, '日付' %>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   root to:  'records#index'
   resources :users, only: :show
-  resources :records, only: [:index,:create, :show, :update, :edit, :destroy] do
+  resources :records, only: [:index,:create,:show, :update, :edit, :destroy] do
     member do
       get 'search'
     end
