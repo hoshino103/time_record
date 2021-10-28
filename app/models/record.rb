@@ -2,28 +2,28 @@ class Record < ApplicationRecord
   belongs_to :user
 
   validates :day_time, presence: true, format: { with: /\A\d{4}-\d{2}-\d{2}\z/ }
-  validates :begin_time, presence: true, on: :complete, on: :update
+  validates :begin_time, presence: true, on: :complete, on: :update 
   validates :finish_time, presence: true, on: :complete,  on: :update
   validates :break_time, presence: true, on: :complete, on: :update
 
-  validate :chack_begin_time, on: :complete, on: :update
-  validate :chack_finish_time, on: :complete, on: :update
-  validate :chack_break_time , on: :complete, on: :update
+  validate :check_begin_time, on: :complete, on: :update
+  validate :check_finish_time, on: :complete, on: :update
+  validate :check_break_time , on: :complete, on: :update
 
-  def chack_begin_time 
+  def check_begin_time 
       if begin_time != nil && finish_time != nil
         errors.add(:begin_time, "登録できません")if begin_time > finish_time
       end
   end
-  def chack_finish_time 
+  def check_finish_time 
       if begin_time != nil && finish_time != nil
         errors.add(:finish_time, "登録できません")if begin_time > finish_time
       end
   end
-  def chack_break_time 
+  def check_break_time 
       if begin_time != nil && finish_time != nil
         work_time = (finish_time - begin_time) / 3600
-        errors.add(:break_time, "登録できません")if  work_time < break_time
+        errors.add(:break_time, "登録できません")if  work_time.to_f < break_time.to_f
       end
   end
   

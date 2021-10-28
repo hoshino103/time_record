@@ -2,13 +2,18 @@ class RecordsController < ApplicationController
   def index
     @records = Record.all
     @record = Record.new
+    if user_signed_in?
+      @record1 = Record.find_by(day_time:today , user_id:current_user.id)
+    end
   end
 
   def create
     @record = Record.new(record_params)
     #ログインユーザーの今日の出退勤レコード
     @record1 = Record.find_by(day_time:today , user_id:current_user.id)
-    if @record1 == nil
+    if @record1.nil? && @record.finish_time !=nil? && @record.begin_time.nil?
+      render action: :confirm
+    elsif @record1 == nil
        @record.save
        redirect_to root_path
     #現在のレコードに出勤時間がなく、送られてきたデータに出勤時間がある場合
@@ -33,16 +38,15 @@ class RecordsController < ApplicationController
 	def confirm
 		@record = Record.new
 		@record = Record.new(record_params)
-		# if @record.invalid?
-		# 	render :confirm
-    # else
-    #   render :confirm
-		# end
 	end
 
 	def complete
     @record1 = Record.find_by(day_time:today , user_id:current_user.id)
-		if @record1.update(record_params)
+    @record = @record = Record.new(record_params)
+    if @record1.nil? && @record.begin_time != nil && @record.finish_time != nil && @record.break_time !=nil && @record.valid?
+       @record.save
+       redirect_to record_path (current_user.id)
+		elsif @record1.update(record_params) 
       redirect_to record_path (current_user.id)
     else
       @record = Record.new(record_params)
@@ -51,24 +55,22 @@ class RecordsController < ApplicationController
 	end
 
   def show
-    @records = Record.where("day_time LIKE? AND user_id LIKE?", "%#{now_month}%", "%#{current_user.id}%")
+    @records = Record.where("day_time LIKE? AND user_id LIKE?", "%#{now_month}%", "%#{current_user.id}%").order('day_time')
     @record1 = Record.find_by(day_time:today , user_id:current_user.id)
   end
 
-  def update
+  def edit
     @record = Record.find(params[:id])
+  end
 
-    if @record.valid?(:valid1) && @record.update(record_params)
+  def update
+    @record1 = Record.find(params[:id])
+    if @record1.update(record_params)
        redirect_to record_path(current_user.id)
     else 
       @record = Record.find(params[:id])
       render :edit
     end
-  end
-
-  def edit
-    # @records = Record.chack_time(params[:id])
-    @record = Record.find(params[:id])
   end
 
   def destroy
@@ -101,5 +103,12 @@ class RecordsController < ApplicationController
     month = time.month
     day = time.day
     "#{year}#{month}#{day}"
+  end
+  def now_month
+    time = Time.now
+    year = time.year
+    month = time.month
+    day = time.day
+    "#{year}-#{month}"
   end
 end
